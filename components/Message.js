@@ -37,7 +37,7 @@ const Message = ({ good = [], okay = [], bad = [] }) => {
   const encodedMarkup = utf8_to_b64(markup);
 
   return (
-    <input type="hidden" value={encodedMarkup} />
+    <input type="hidden" name="rmsg" value={encodedMarkup} />
   );
 };
 
