@@ -4,7 +4,10 @@
   "description": "A website usability assessment mini-app for marisamorby.com",
   "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack -p --progress --colors",
+    "preversion": "npm run build && git add -A'",
+    "postversion": "git push && git push --tags"
   },
   "author": "",
   "license": "ISC",
