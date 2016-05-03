@@ -37,7 +37,7 @@ const Results = ({ isVisible, currentResults = 0 }) => {
           conversion rate.
         </p>
       </div>
-      <form className="mm-assessment__form" action="/process.php" method="post">
+      <form className="mm-assessment__form" action="./" method="post">
         <div className="mm-assessment__input-group">
           <label className="mm-assessment__label" htmlFor="fname">
             First Name
