@@ -1,6 +1,6 @@
 {
   "name": "mm-assessment",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "A website usability assessment mini-app for marisamorby.com",
   "main": "server.js",
   "scripts": {
