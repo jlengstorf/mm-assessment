@@ -5,12 +5,8 @@ import ResourceMessage from '../containers/ResourceMessage';
 const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) => {
   let loading = false;
   if (messages.length < 1) {
-    console.log('loading messages...');
     onMessagesEmpty();
-
     loading = true;
-  } else {
-    console.log('messages loaded.');
   }
 
   const messageData = getMessageData(messages, currentResults);
@@ -25,7 +21,7 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
 
   const image = messageData.image && messageData.image.pop();
   const email = messageData.email_message && messageData.email_message[0];
-  console.log(email);
+
   const classes = ['mm-assessment__results'];
   !isVisible && classes.push('mm-assessment__results--hidden');
 

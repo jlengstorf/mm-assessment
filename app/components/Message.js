@@ -19,8 +19,6 @@ const Message = ({ message, good = [], okay = [], bad = [] }) => {
     `<p>${splitByLineBreaks(message.bottom).join('</p><p>')}</p>`,
   ].join('');
 
-  console.log(markup);
-
   const encodedMarkup = utf8_to_b64(markup);
 
   return (
