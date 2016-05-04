@@ -1,41 +1,59 @@
 import React from 'react';
+import {buildJSXFromArray, splitByLineBreaks} from '../utils';
 import ResourceMessage from '../containers/ResourceMessage';
 
-const Results = ({ isVisible, currentResults = 0 }) => {
-  const messageData = getMessageData(currentResults);
+const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) => {
+  let loading = false;
+  if (messages.length < 1) {
+    console.log('loading messages...');
+    onMessagesEmpty();
+
+    loading = true;
+  } else {
+    console.log('messages loaded.');
+  }
+
+  const messageData = getMessageData(messages, currentResults);
+
+  if (!messageData) {
+    loading = true;
+  }
+
+  if (loading === true) {
+    return (<div className="mm-assessment__loading">Loading results...</div>);
+  }
+
+  const image = messageData.image && messageData.image.pop();
+  const email = messageData.email_message && messageData.email_message[0];
+  console.log(email);
   const classes = ['mm-assessment__results'];
-  console.log('isVisible', isVisible);
   !isVisible && classes.push('mm-assessment__results--hidden');
 
   return (
     <section className={classes.join(' ')}>
       <h2 className="mm-assessment__heading">
-        <strong className="mm-assessment__grade">{currentResults}/10</strong>
+        <strong className="mm-assessment__grade">Score: {currentResults}%</strong>
         {" — " + messageData.heading}
       </h2>
       <h3 className="mm-assessment__sub-heading">{messageData.subheading}</h3>
-      <figure className="mm-assessment__image-wrap">
-        <img src={messageData.image.src} alt={messageData.image.alt} className="mm-assessment__image" />
-        <figcaption className="mm-assessment__image-caption">
-          {messageData.image.caption || messageData.image.alt}
-          {messageData.image.credit && (
-            <span className="mm-assessment__image-credit">
-              <CreditLink
-                credit={messageData.image.credit}
-                creditLink={messageData.image.creditLink} 
-              />
-            </span>
-          )}
-        </figcaption>
-      </figure>
+      {image && (
+        <figure className="mm-assessment__image-wrap">
+          <img src={image.src} alt={image.alt} className="mm-assessment__image" />
+          <figcaption className="mm-assessment__image-caption">
+            {image.caption || image.alt}
+            {image.credit && (
+              <span className="mm-assessment__image-credit">
+                <CreditLink
+                  credit={image.credit}
+                  creditLink={image.creditLink}
+                />
+              </span>
+            )}
+          </figcaption>
+        </figure>
+      )}
       <div class="mm-assessment__description">
-        {messageData.message}
-        <p>
-          Enter your name and email below to get a customized report delivered
-          directly to your inbox that breaks down simple fixes for your site
-          that can make a big difference to your site's visitors — and to your
-          conversion rate.
-        </p>
+        {buildJSXFromArray(splitByLineBreaks(messageData.message))}
       </div>
       <form className="mm-assessment__form" action="./" method="post">
         <div className="mm-assessment__input-group">
@@ -62,7 +80,7 @@ const Results = ({ isVisible, currentResults = 0 }) => {
                type="submit"
                value="Send My Report"
         />
-        <ResourceMessage />
+        <ResourceMessage message={email} />
       </form>
     </section>
   );
@@ -77,7 +95,7 @@ const CreditLink = ({ credit, creditLink }) => {
 
   if (creditLink) {
     imageCredit = (
-      <a className="mm-assessment__credit mm-assessment__credit--link" 
+      <a className="mm-assessment__credit mm-assessment__credit--link"
          href={creditLink}>
         {credit}
       </a>
@@ -92,7 +110,27 @@ const CreditLink = ({ credit, creditLink }) => {
   );
 };
 
-const getMessageData = (score) => {
+const getMessageData = (messages, score) => {
+  return messages
+
+    // Find message sets that meet the minimum score requirement
+    .filter(msg => {
+      return msg.minimum_score <= score;
+    })
+
+    // Sort messages by minimum score (descending) and return the first one.
+    .sort((a, b) => {
+      if (a.minimum_score === b.minimum_score) {
+        return 0;
+      }
+
+      return (a.minimum_score > b.minimum_score) ? -1 : 1;
+    })[0];
+
+  return message;
+};
+
+const OgetMessageData = (score) => {
   if (score === 10) {
     return {
       heading: 'Perfect!',
@@ -107,7 +145,7 @@ const getMessageData = (score) => {
             Well, look at you go! You’re kicking ass — don’t change a thing.
           </p>
           <p>
-            But just in case you’d like to brush up on all the ways you’re 
+            But just in case you’d like to brush up on all the ways you’re
             doing things right, I’ve put together a refresher course for you.
           </p>
         </div>
@@ -131,7 +169,7 @@ const getMessageData = (score) => {
             Message about a good-not-great website.
           </p>
           <p>
-            But don’t worry: fixing the issues with your site may not be as 
+            But don’t worry: fixing the issues with your site may not be as
             hard as you think.
           </p>
         </div>
@@ -155,7 +193,7 @@ const getMessageData = (score) => {
             Message about an okay website.
           </p>
           <p>
-            But don’t worry: fixing the issues with your site may not be as 
+            But don’t worry: fixing the issues with your site may not be as
             hard as you think.
           </p>
         </div>
@@ -176,13 +214,13 @@ const getMessageData = (score) => {
       message: (
         <div>
           <p>
-            Okay, I’m not going to sugar-coat it: your site needs work. 
-            There’s  a good chance your site visitors are frustrated, 
-            confused, and closing your site before they ever learn how you 
+            Okay, I’m not going to sugar-coat it: your site needs work.
+            There’s  a good chance your site visitors are frustrated,
+            confused, and closing your site before they ever learn how you
             can help them. ¡No bueno!
           </p>
           <p>
-            But don’t worry: fixing the issues with your site may not be as 
+            But don’t worry: fixing the issues with your site may not be as
             hard as you think.
           </p>
         </div>

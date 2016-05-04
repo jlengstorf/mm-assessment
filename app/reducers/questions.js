@@ -165,9 +165,10 @@ const questionArray = [
   },
 ];
 
-const questions = (state = questionArray, action) => {
+const questions = (state = [], action) => {
   switch (action.type) {
-    default:
+    case 'SAVE_QUESTIONS':
+      state = action.questions;
   }
 
   return state;

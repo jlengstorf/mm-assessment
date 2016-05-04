@@ -9,7 +9,8 @@ const QuestionOption = ({ name, id, label, value, onChangeHandler }) => (
            value={value}
            onChange={onChangeHandler}
     />
-    <label htmlFor={`${name}_${id}`}>
+    <label className="mm-question__label"
+           htmlFor={`${name}_${id}`}>
       {label}
     </label>
   </li>
