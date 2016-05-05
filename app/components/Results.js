@@ -10,12 +10,13 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
   }
 
   const messageData = getMessageData(messages, currentResults);
+  let image = '';
   let email = '';
 
   if (!messageData) {
     loading = true;
   } else {
-    const image = messageData.image && messageData.image.pop();
+    image = messageData.image && messageData.image.pop();
     email = messageData.email_message && messageData.email_message[0];
   }
 
@@ -32,7 +33,7 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
             {" — " + messageData.heading}
           </h2>
           <h3 className="mm-assessment__sub-heading">{messageData.subheading}</h3>
-          {image && (
+          {image && image.src && (
             <figure className="mm-assessment__image-wrap">
               <img src={image.src} alt={image.alt} className="mm-assessment__image" />
               <figcaption className="mm-assessment__image-caption">
