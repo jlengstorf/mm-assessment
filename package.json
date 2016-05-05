@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "develop": "webpack-dev-server --inline",
-    "build": "NODE_ENV=production webpack --progress --colors",
+    "build": "NODE_ENV=production webpack --p --optimize-dedupe --progress --colors",
     "preversion": "npm run build && git add -A",
     "postversion": "git push && git push --tags"
   },
