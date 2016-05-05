@@ -2,26 +2,26 @@ import React from 'react';
 import {buildJSXFromArray, splitByLineBreaks} from '../utils';
 
 const Message = ({ message, good = [], okay = [], bad = [] }) => {
-  if (!message) {
-    return (<input type="hidden" name="rmsg" value="" />);
-  }
+  let markup = '';
 
-  const markup = [
-    `<p>${splitByLineBreaks(message.top).join('</p><p>')}</p>`,
-    buildLinkMarkup(
-      buildLinks(bad),
-      message.badHeading
-    ),
-    buildLinkMarkup(
-      buildLinks(okay),
-      message.okayHeading
-    ),
-    buildLinkMarkup(
-      buildLinks(good),
-      message.goodHeading
-    ),
-    `<p>${splitByLineBreaks(message.bottom).join('</p><p>')}</p>`,
-  ].join('');
+  if (message && message.top) {
+    markup = [
+      `<p>${splitByLineBreaks(message.top).join('</p><p>')}</p>`,
+      buildLinkMarkup(
+        buildLinks(bad),
+        message.badHeading
+      ),
+      buildLinkMarkup(
+        buildLinks(okay),
+        message.okayHeading
+      ),
+      buildLinkMarkup(
+        buildLinks(good),
+        message.goodHeading
+      ),
+      `<p>${splitByLineBreaks(message.bottom).join('</p><p>')}</p>`,
+    ].join('');
+  }
 
   const encodedMarkup = utf8_to_b64(markup);
 
