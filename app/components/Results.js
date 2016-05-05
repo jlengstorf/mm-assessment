@@ -20,7 +20,7 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
     email = messageData.email_message && messageData.email_message[0];
   }
 
-  const classes = ['mm-assessment__results'];
+  const classes = ['mm-assessment__results', 'mm-results'];
   !isVisible && classes.push('mm-assessment__results--hidden');
   loading && classes.push('mm-assessment__results--loading');
 
@@ -28,18 +28,18 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
     <section className={classes.join(' ')}>
       {!loading && (
         <div>
-          <h2 className="mm-assessment__heading">
-            <strong className="mm-assessment__grade">Score: {currentResults}%</strong>
+          <h2 className="mm-results__heading">
+            <strong className="mm-results__grade">Score: {currentResults}%</strong>
             {" — " + messageData.heading}
           </h2>
-          <h3 className="mm-assessment__sub-heading">{messageData.subheading}</h3>
+          <h3 className="mm-results__sub-heading">{messageData.subheading}</h3>
           {image && image.src && (
-            <figure className="mm-assessment__image-wrap">
-              <img src={image.src} alt={image.alt} className="mm-assessment__image" />
-              <figcaption className="mm-assessment__image-caption">
+            <figure className="mm-results__image-wrap">
+              <img src={image.src} alt={image.alt} className="mm-results__image" />
+              <figcaption className="mm-results__image-caption">
                 {image.caption || image.alt}
                 {image.credit && (
-                  <span className="mm-assessment__image-credit">
+                  <span className="mm-results__image-credit">
                     <CreditLink
                       credit={image.credit}
                       creditLink={image.creditLink}
@@ -49,33 +49,33 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
               </figcaption>
             </figure>
           )}
-          <div class="mm-assessment__description">
+          <div class="mm-results__description">
             {buildJSXFromArray(splitByLineBreaks(messageData.message))}
           </div>
         </div>
       )}
-      <form className="mm-assessment__form" action="./" method="post">
-        <div className="mm-assessment__input-group">
-          <label className="mm-assessment__label" htmlFor="fname">
+      <form className="mm-results__form" action="./" method="post">
+        <div className="mm-results__input-group">
+          <label className="mm-results__label" htmlFor="fname">
             First Name
           </label>
-          <input className="mm-assessment__input mm-assessment__input--text"
+          <input className="mm-results__input mm-results__input--text"
                  type="text"
                  name="fname"
                  id="fname"
           />
         </div>
-        <div className="mm-assessment__input-group">
-          <label className="mm-assessment__label" htmlFor="email">
+        <div className="mm-results__input-group">
+          <label className="mm-results__label" htmlFor="email">
             Email Address
           </label>
-          <input className="mm-assessment__input mm-assessment__input--email"
+          <input className="mm-results__input mm-results__input--email"
                  type="email"
                  name="email"
                  id="email"
           />
         </div>
-        <input className="mm-assessment__button"
+        <input className="mm-results__button"
                type="submit"
                value="Send My Report"
         />
@@ -87,14 +87,14 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
 
 const CreditLink = ({ credit, creditLink }) => {
   let imageCredit = (
-    <span className="mm-assessment__credit">
+    <span className="mm-results__credit">
       {credit}
     </span>
   );
 
   if (creditLink) {
     imageCredit = (
-      <a className="mm-assessment__credit mm-assessment__credit--link"
+      <a className="mm-results__credit mm-results__credit--link"
          href={creditLink}>
         {credit}
       </a>
@@ -102,7 +102,7 @@ const CreditLink = ({ credit, creditLink }) => {
   }
 
   return (
-    <small className="mm-assessment__image-credit">
+    <small className="mm-results__image-credit">
       {"Credit: "}
       {imageCredit}
     </small>
