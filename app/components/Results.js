@@ -27,7 +27,7 @@ const Results = ({ isVisible = false, messages, currentResults = 0, onMessagesEm
   return (
     <section className={classes.join(' ')}>
       {!loading && (
-        <div>
+        <div className="mm-results__header">
           <h2 className="mm-results__heading">
             <strong className="mm-results__grade">Score: {currentResults}%</strong>
             {" — " + messageData.heading}
@@ -49,9 +49,11 @@ const Results = ({ isVisible = false, messages, currentResults = 0, onMessagesEm
               </figcaption>
             </figure>
           )}
-          <div className="mm-results__description">
-            {buildJSXFromArray(splitByLineBreaks(messageData.message))}
-          </div>
+        </div>
+      )}
+      {!loading && (
+        <div className="mm-results__description">
+          {buildJSXFromArray(splitByLineBreaks(messageData.message))}
         </div>
       )}
       <form className="mm-results__form" action="./" method="post">
