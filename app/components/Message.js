@@ -2,6 +2,10 @@ import React from 'react';
 import {buildJSXFromArray, splitByLineBreaks} from '../utils';
 
 const Message = ({ message, good = [], okay = [], bad = [] }) => {
+  if (!message) {
+    return (<input type="hidden" name="rmsg" value="" />);
+  }
+
   const markup = [
     `<p>${splitByLineBreaks(message.top).join('</p><p>')}</p>`,
     buildLinkMarkup(

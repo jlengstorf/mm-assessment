@@ -15,8 +15,8 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
     loading = true;
   }
 
-  const image = messageData.image && messageData.image.pop();
-  const email = messageData.email_message && messageData.email_message[0];
+  const image = messageData && messageData.image && messageData.image.pop();
+  const email = messageData && messageData.email_message && messageData.email_message[0];
 
   const classes = ['mm-assessment__results'];
   !isVisible && classes.push('mm-assessment__results--hidden');
@@ -24,30 +24,34 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
 
   return (
     <section className={classes.join(' ')}>
-      <h2 className="mm-assessment__heading">
-        <strong className="mm-assessment__grade">Score: {currentResults}%</strong>
-        {" — " + messageData.heading}
-      </h2>
-      <h3 className="mm-assessment__sub-heading">{messageData.subheading}</h3>
-      {image && (
-        <figure className="mm-assessment__image-wrap">
-          <img src={image.src} alt={image.alt} className="mm-assessment__image" />
-          <figcaption className="mm-assessment__image-caption">
-            {image.caption || image.alt}
-            {image.credit && (
-              <span className="mm-assessment__image-credit">
-                <CreditLink
-                  credit={image.credit}
-                  creditLink={image.creditLink}
-                />
-              </span>
-            )}
-          </figcaption>
-        </figure>
+      {!loading && (
+        <div>
+          <h2 className="mm-assessment__heading">
+            <strong className="mm-assessment__grade">Score: {currentResults}%</strong>
+            {" — " + messageData.heading}
+          </h2>
+          <h3 className="mm-assessment__sub-heading">{messageData.subheading}</h3>
+          {image && (
+            <figure className="mm-assessment__image-wrap">
+              <img src={image.src} alt={image.alt} className="mm-assessment__image" />
+              <figcaption className="mm-assessment__image-caption">
+                {image.caption || image.alt}
+                {image.credit && (
+                  <span className="mm-assessment__image-credit">
+                    <CreditLink
+                      credit={image.credit}
+                      creditLink={image.creditLink}
+                    />
+                  </span>
+                )}
+              </figcaption>
+            </figure>
+          )}
+          <div class="mm-assessment__description">
+            {buildJSXFromArray(splitByLineBreaks(messageData.message))}
+          </div>
+        </div>
       )}
-      <div class="mm-assessment__description">
-        {buildJSXFromArray(splitByLineBreaks(messageData.message))}
-      </div>
       <form className="mm-assessment__form" action="./" method="post">
         <div className="mm-assessment__input-group">
           <label className="mm-assessment__label" htmlFor="fname">
@@ -104,6 +108,10 @@ const CreditLink = ({ credit, creditLink }) => {
 };
 
 const getMessageData = (messages, score) => {
+  if (messages.length < 1) {
+    return false;
+  }
+
   return messages
 
     // Find message sets that meet the minimum score requirement
