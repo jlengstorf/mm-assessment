@@ -2,7 +2,7 @@ import React from 'react';
 import {buildJSXFromArray, splitByLineBreaks} from '../utils';
 import ResourceMessage from '../containers/ResourceMessage';
 
-const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) => {
+const Results = ({ isVisible = false, messages, currentResults = 0, onMessagesEmpty }) => {
   let loading = false;
   if (messages.length < 1) {
     onMessagesEmpty();
@@ -21,7 +21,7 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
   }
 
   const classes = ['mm-assessment__results', 'mm-results'];
-  !isVisible && classes.push('mm-assessment__results--hidden');
+  isVisible !== true && classes.push('mm-assessment__results--hidden');
   loading && classes.push('mm-assessment__results--loading');
 
   return (
