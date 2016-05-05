@@ -10,7 +10,7 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
   }
 
   const messageData = getMessageData(messages, currentResults);
-  let email = false;
+  let email = '';
 
   if (!messageData) {
     loading = true;
