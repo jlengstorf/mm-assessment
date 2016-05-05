@@ -105,7 +105,7 @@ const CreditLink = ({ credit, creditLink }) => {
 
   return (
     <small className="mm-results__image-credit">
-      {"Credit: "}
+      {"Image Credit: "}
       {imageCredit}
     </small>
   );
