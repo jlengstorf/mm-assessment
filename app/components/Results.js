@@ -77,7 +77,7 @@ const Results = ({ isVisible = false, messages, currentResults = 0, onMessagesEm
                  id="email"
           />
         </div>
-        <input className="mm-results__button"
+        <input className="mm-results__button button button--dark"
                type="submit"
                value="Send My Report"
         />
