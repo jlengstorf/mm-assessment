@@ -1,7 +1,7 @@
 import React from 'react';
 import QuestionAnswer from '../containers/QuestionAnswer';
 
-const Question = ({ id, question, description = false, answers, isAnswered }) => {
+const Question = ({ id, question, instructions = false, answers, isAnswered }) => {
   const answerComponents = answers.map(answer => (<QuestionAnswer key={answer.id} name={id} {...answer} />));
 
   const classes = ['mm-assessment__input-group', 'mm-assessment__input-group--question', 'mm-question'];
@@ -14,9 +14,9 @@ const Question = ({ id, question, description = false, answers, isAnswered }) =>
       <h3 className="mm-question__heading">
         {question}
       </h3>
-      {description && (
-        <p className="mm-question__description">
-          {description}
+      {instructions && (
+        <p className="mm-question__instructions">
+          {instructions}
         </p>
       )}
       <ul className="mm-question__radio-group">
