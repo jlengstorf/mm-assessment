@@ -5,13 +5,8 @@ import CalculatedScore from '../containers/CalculatedScore';
 const App = () => {
   return (
     <div>
-
-      <section className="mm-assessment__questions">
-        <AssessmentForm />
-      </section>
-
+      <AssessmentForm />
       <CalculatedScore />
-
     </div>
   );
 };
