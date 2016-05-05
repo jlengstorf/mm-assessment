@@ -49,7 +49,7 @@ const Results = ({ isVisible = false, messages, currentResults = 0, onMessagesEm
               </figcaption>
             </figure>
           )}
-          <div class="mm-results__description">
+          <div className="mm-results__description">
             {buildJSXFromArray(splitByLineBreaks(messageData.message))}
           </div>
         </div>
