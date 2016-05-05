@@ -16,7 +16,7 @@ const Results = ({ isVisible = false, messages, currentResults = 0, onMessagesEm
   if (!messageData) {
     loading = true;
   } else {
-    image = messageData.image && messageData.image.pop();
+    image = messageData.image && messageData.image[0];
     email = messageData.email_message && messageData.email_message[0];
   }
 
