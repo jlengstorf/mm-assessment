@@ -10,8 +10,8 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
   }
 
   const messageData = getMessageData(messages, currentResults);
-  let image = '';
-  let email = '';
+  let image = { loaded: false };
+  let email = { loaded: false };
 
   if (!messageData) {
     loading = true;
