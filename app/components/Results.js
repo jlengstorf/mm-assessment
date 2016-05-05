@@ -15,15 +15,12 @@ const Results = ({ isVisible, messages, currentResults = 0, onMessagesEmpty }) =
     loading = true;
   }
 
-  if (loading === true) {
-    return (<div className="mm-assessment__loading">Loading results...</div>);
-  }
-
   const image = messageData.image && messageData.image.pop();
   const email = messageData.email_message && messageData.email_message[0];
 
   const classes = ['mm-assessment__results'];
   !isVisible && classes.push('mm-assessment__results--hidden');
+  loading && classes.push('mm-assessment__results--loading');
 
   return (
     <section className={classes.join(' ')}>
