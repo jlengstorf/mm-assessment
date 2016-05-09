@@ -40,7 +40,13 @@ const buildLinks = (links) => {
       return '';
     }
 
-    return `<li><a href="${resource.url}">"${resource.title}"</a></li>`;
+    // Make sure links are full URLs
+    let url = resource.url;
+    if (url.search(/^http.*/) === -1) {
+      url = location.protocol + '//' + location.host + resource.url;
+    }
+
+    return `<li><a href="${url}">"${resource.title}"</a></li>`;
   });
 }
 
