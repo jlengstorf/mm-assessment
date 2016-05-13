@@ -46,7 +46,7 @@ const buildLinks = (links) => {
       url = location.protocol + '//' + location.host + resource.url;
     }
 
-    return `<li><a href="${url}">"${resource.title}"</a></li>`;
+    return `<li><a href="${url}">${resource.title}</a></li>`;
   });
 }
 
