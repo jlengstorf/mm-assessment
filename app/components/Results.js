@@ -82,6 +82,13 @@ const Results = ({ isVisible = false, messages, currentResults = 0, onMessagesEm
                value="Send My Report"
         />
         <ResourceMessage message={email} />
+        <div className="mm-assessment__notices">
+          <p className="mm-assessment__notices-text">
+            Your report will be delivered immediately via email, and
+            you&rsquo;ll occassionally receive updates from me. But spam sucks
+            — and that&rsquo;s why I&rsquo;ll never send you any.
+          </p>
+        </div>
       </form>
     </section>
   );
